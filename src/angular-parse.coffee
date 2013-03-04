@@ -114,6 +114,11 @@ module.provider 'Parse', ->
               password: password
             ).save().then (user) ->
               Parse.auth._login(user)
+
+          registerUser: (newUser) ->
+            console.log('register user')
+            newUser.save().then (user) ->
+              Parse.auth._login(user)
           
           login: (username, password) ->
             Parse._request("GET", "/login", null, {

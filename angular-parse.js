@@ -139,6 +139,12 @@
                 return Parse.auth._login(user);
               });
             },
+            registerUser: function(newUser) {
+              console.log('register user');
+              return newUser.save().then(function(user) {
+                return Parse.auth._login(user);
+              });
+            },
             login: function(username, password) {
               return Parse._request("GET", "/login", null, {
                 username: username,
