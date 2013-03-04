@@ -20,17 +20,25 @@ module.exports = function(grunt) {
 
     coffee: {
       core: {
-        src: ['src/angular-parse.coffee'],
+        expand: true,
+        cwd: 'src',
+        src: ['*.coffee'],
         dest: '.',
-        options: {bare: false}
+        ext: '.js'
       },
       example: {
-        src: ['example/coffee/*.coffee'],
-        dest: 'example/js'
+        expand: true,
+        cwd: 'example/coffee',
+        src: ['*.coffee'],
+        dest: 'example/js',
+        ext: '.js'
       },
       cloud: {
-        src: ['example/parse/src/*.coffee'],
-        dest: 'example/parse/cloud'
+        expand: true,
+        cwd: 'example/parse/src',
+        src: ['*.coffee'],
+        dest: 'example/parse/cloud',
+        ext: '.js'
       }
     },
     testacularServer: {
@@ -41,7 +49,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-testacular');
-  grunt.loadNpmTasks('grunt-coffee');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
 
   // Default task.
   grunt.registerTask('default', 'coffee');

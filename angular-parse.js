@@ -291,7 +291,7 @@
           __extends(User, _super);
 
           function User() {
-            return User.__super__.constructor.apply(this, arguments);
+            User.__super__.constructor.apply(this, arguments);
           }
 
           User.configure('users', 'username', 'password');
