@@ -153,6 +153,15 @@
                 return Parse.auth._login(new Parse.User(response.data));
               });
             },
+            loginUser: function(username, password, user) {
+              return Parse._request("GET", "/login", null, {
+                username: username,
+                password: password
+              }).then(function(response) {
+                var newuser;
+                return newuser = Parse.auth._login(user.init(response.data));
+              });
+            },
             logout: function() {
               persist.remove(['PARSE_SESSION_TOKEN', 'PARSE_USER_INFO']);
               Parse.auth.currentUser = null;
@@ -201,6 +210,15 @@
               this[key] = value;
             }
           }
+
+          Model.prototype.init = function(data) {
+            var key, value;
+            for (key in data) {
+              value = data[key];
+              this[key] = value;
+            }
+            return this;
+          };
 
           Model.prototype.isNew = function() {
             return !this.objectId;

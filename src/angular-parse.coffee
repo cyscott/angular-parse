@@ -128,6 +128,15 @@ module.provider 'Parse', ->
             .then (response) ->
               Parse.auth._login( new Parse.User(response.data))
 
+          loginUser: (username, password, user) ->
+            Parse._request("GET", "/login", null, {
+              username: username
+              password: password
+            })
+            .then (response) ->
+              newuser = 
+              Parse.auth._login( user.init(response.data) )
+
           logout: ->
             persist.remove ['PARSE_SESSION_TOKEN', 'PARSE_USER_INFO']
             #delete localStorage.PARSE_SESSION_TOKEN 
@@ -165,6 +174,11 @@ module.provider 'Parse', ->
         constructor: (data) ->
           for key, value of data
             @[key] = value
+
+        init: (data) ->
+          for key, value of data
+            @[key] = value
+          @
 
         isNew: ->
           !@objectId
